@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Platform,
   SafeAreaView,
@@ -9,12 +9,12 @@ import {
   View,
 } from 'react-native';
 import {TaskList} from '../../components/TaskList';
-import {TasksContext} from '../../context/TasksContext';
+import {useTaskList} from '../../context/TasksContext';
 
 export const Home = () => {
   const [newTask, setNewTask] = useState('');
 
-  const {addTask} = useContext(TasksContext);
+  const {addTask} = useTaskList();
 
   const handleAddNewTask = () => {
     const data = {

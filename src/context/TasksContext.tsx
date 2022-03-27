@@ -3,6 +3,7 @@ import React, {
   createContext,
   FC,
   ReactElement,
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -56,3 +57,13 @@ export const TasksProvider: FC<IProps> = ({children}) => {
     </TasksContext.Provider>
   );
 };
+
+export function useTaskList(): ITasksContext {
+  const context = useContext(TasksContext);
+
+  if (!context) {
+    throw new Error('useTaskList deve ser usado em um TasksProvider');
+  }
+
+  return context;
+}
