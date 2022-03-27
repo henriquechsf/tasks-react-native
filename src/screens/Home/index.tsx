@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
-  FlatList,
   Platform,
   SafeAreaView,
   StyleSheet,
@@ -10,15 +9,12 @@ import {
   View,
 } from 'react-native';
 import {TaskList} from '../../components/TaskList';
-
-interface Task {
-  id: string;
-  title: string;
-}
+import {TasksContext} from '../../context/TasksContext';
 
 export const Home = () => {
   const [newTask, setNewTask] = useState('');
-  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const {addTask} = useContext(TasksContext);
 
   const handleAddNewTask = () => {
     const data = {
@@ -26,7 +22,7 @@ export const Home = () => {
       title: newTask ? newTask : 'Task empty',
     };
 
-    setTasks([...tasks, data]);
+    addTask(data);
   };
 
   return (
@@ -50,7 +46,7 @@ export const Home = () => {
 
         <Text style={styles.titleTasks}>Minhas Tarefas</Text>
 
-        <TaskList tasks={tasks} />
+        <TaskList />
       </View>
     </SafeAreaView>
   );
